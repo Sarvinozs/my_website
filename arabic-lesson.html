@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arab tili: bu, anavi, olmoshlar va egalik</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ECEBDF; --card:#F5F4EA; --ink:#1B2E29; --soft:#4B5F59;
+  --green:#27493F; --gold:#8A6C22; --blue:#48698A; --blush:#A65F5A;
+  --line:rgba(27,46,41,.2); --ok:#2B6A4C; --bad:#9A3B3B;
+  --ar:"Amiri","Noto Naskh Arabic","Traditional Arabic","Geeza Pro","Times New Roman",serif;
+  --ui:"Alegreya Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#101E1A; --card:#182A25; --ink:#E8E6D8; --soft:#A8B5AE;
+    --green:#86B7A5; --gold:#D4B46C; --blue:#93B4D2; --blush:#E0A9A4;
+    --line:rgba(232,230,216,.22); --ok:#7CC29F; --bad:#E08C8C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101E1A; --card:#182A25; --ink:#E8E6D8; --soft:#A8B5AE;
+  --green:#86B7A5; --gold:#D4B46C; --blue:#93B4D2; --blush:#E0A9A4;
+  --line:rgba(232,230,216,.22); --ok:#7CC29F; --bad:#E08C8C;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:18px;line-height:1.45}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+.near{--k:var(--green)} .far{--k:var(--gold)} .p1{--k:var(--blush)} .p2{--k:var(--blue)} .p3{--k:var(--green)}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-in{max-width:880px;margin:0 auto;padding:10px 18px 0}
+.brand{display:flex;align-items:baseline;gap:12px}
+.brand-ar{font-family:var(--ar);font-size:1.7rem;color:var(--gold);line-height:1.2}
+.brand-t{color:var(--soft);font-size:.95rem}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin-top:4px}
+.tab{padding:10px 14px 9px;border-bottom:3px solid transparent;white-space:nowrap;color:var(--soft);font-weight:500}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--gold);font-weight:700}
+
+main{max-width:880px;margin:0 auto;padding:26px 18px 60px}
+section[hidden]{display:none}
+h2{font-size:2rem;line-height:1.15;margin:0 0 8px;font-weight:700}
+.lead{margin:0 0 22px;color:var(--soft);max-width:60ch}
+h3{font-size:1.15rem;margin:34px 0 10px;font-weight:700}
+.hint{font-size:.98rem;color:var(--soft);margin:12px 0 0;max-width:62ch}
+
+.ar{font-family:var(--ar);direction:rtl;line-height:1.5}
+.ar-in{font-family:var(--ar);font-size:1.18em;direction:rtl;unicode-bidi:isolate}
+
+/* speaker icon */
+.spk{flex:none;width:22px;height:22px;color:var(--soft)}
+.playing .spk,.playing.spk{color:var(--gold);animation:pulse .7s ease-in-out infinite alternate}
+@keyframes pulse{to{transform:scale(1.18)}}
+
+/* demonstrative diagram */
+.dem{display:grid;grid-template-columns:auto 1fr 1fr;gap:10px;align-items:stretch}
+.dem .colh,.dem .rowh{color:var(--soft);font-size:.95rem;display:flex;align-items:center}
+.dem .colh{justify-content:center;text-align:center;padding-bottom:2px}
+.dem .rowh{font-weight:700;color:var(--k);padding-right:6px;max-width:92px;line-height:1.2}
+.word{--k:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:18px 10px 14px;
+  border:1px solid var(--line);border-bottom:4px solid var(--k);border-radius:6px;
+  background:color-mix(in srgb,var(--k) 10%,var(--card));position:relative;min-height:150px;text-align:center}
+.word .w-ar{font-family:var(--ar);font-size:3rem;line-height:1.35;color:var(--k);direction:rtl}
+.word .w-tr{font-style:italic;color:var(--soft)}
+.word .w-uz{font-weight:700;font-size:1.15rem}
+.word .spk{position:absolute;top:8px;right:8px;width:20px;height:20px}
+.word:active,.ex:active,.card:active{transform:scale(.985)}
+
+/* examples */
+.exs{border-top:1px solid var(--line)}
+.ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 22px;gap:14px;align-items:center;width:100%;padding:12px 4px;border-bottom:1px solid var(--line)}
+.ex-ar{font-family:var(--ar);font-size:2rem;line-height:1.5;direction:rtl;text-align:left}
+.seg{color:var(--k);font-weight:700}
+.ex-t{display:flex;flex-direction:column}
+.ex-t i{color:var(--soft);font-size:.95rem}
+.ex-t b{font-size:1.15rem}
+.ex-t small{color:var(--soft);font-size:.9rem}
+
+/* pronoun groups */
+.grp{margin:0 0 22px}
+.grp-h{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;color:var(--k);font-weight:700}
+.grp-h span{color:var(--soft);font-weight:400;font-size:.95rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:14px 8px 12px;text-align:center;
+  border:1px solid var(--line);border-bottom:4px solid var(--k);border-radius:6px;
+  background:color-mix(in srgb,var(--k) 10%,var(--card));position:relative}
+.card .c-ar{font-family:var(--ar);font-size:2.3rem;line-height:1.4;color:var(--k);direction:rtl}
+.card .c-tr{font-style:italic;color:var(--soft)}
+.card .c-uz{font-weight:700}
+.card .c-sm{font-size:.88rem;color:var(--soft)}
+.card .spk{position:absolute;top:7px;right:7px;width:18px;height:18px}
+
+/* builder */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.pill{display:flex;align-items:baseline;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.pill .ar{font-size:1.5rem;line-height:1.3}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.build .card{align-items:stretch;text-align:left;gap:4px;padding:12px 12px 10px}
+.build .b-top{display:flex;align-items:center;gap:8px;color:var(--k);font-weight:700;font-size:.98rem}
+.build .b-suf{font-family:var(--ar);font-size:1.6rem;direction:rtl;line-height:1.2;color:var(--k)}
+.build .c-ar{text-align:center;font-size:2.3rem}
+.build .c-tr,.build .c-uz{text-align:center}
+.note{margin:18px 0 0;padding:12px 14px;border-left:4px solid var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--card));border-radius:0 6px 6px 0;max-width:64ch}
+.note p{margin:0}
+.note p+p{margin-top:6px}
+
+.next{margin-top:34px;display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:var(--ink);color:var(--paper);border-radius:6px;font-weight:700}
+
+/* quiz */
+.qbar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 0 6px}
+.qbar i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qcount{color:var(--soft);font-size:.95rem;margin:0 0 18px}
+.q-prompt{font-size:1.3rem;font-weight:700;margin:0 0 8px}
+.q-ar{display:flex;align-items:center;gap:12px;margin:2px 0 16px}
+.q-ar .ar{font-size:2.6rem;line-height:1.4}
+.q-ar .spk{width:26px;height:26px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:6px;background:var(--card);overflow:hidden}
+.opt-main{flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;min-width:0}
+.opt-main:hover:not(:disabled){background:color-mix(in srgb,var(--gold) 12%,var(--card))}
+.opt-main:disabled{cursor:default}
+.o-ar{font-family:var(--ar);font-size:1.9rem;line-height:1.4;direction:rtl}
+.o-t{font-size:1.1rem}
+.o-tag{margin-left:auto;font-weight:700;font-size:.9rem;white-space:nowrap}
+.opt-say{flex:none;display:flex;align-items:center;padding:0 14px;border-left:1px solid var(--line)}
+.opt.correct{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.opt.correct .o-tag{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,var(--card))}
+.opt.wrong .o-tag{color:var(--bad)}
+.fb{margin-top:18px;display:grid;gap:10px}
+.fb-b{padding:12px 14px;border-radius:6px;border:1px solid var(--line);border-left-width:5px;background:var(--card);max-width:66ch}
+.fb-b.g{border-left-color:var(--ok)} .fb-b.r{border-left-color:var(--bad)}
+.fb-b h4{margin:0 0 4px;font-size:1.02rem}
+.fb-b.g h4{color:var(--ok)} .fb-b.r h4{color:var(--bad)}
+.fb-b p{margin:0}
+.result{padding:8px 0}
+.result .big{font-size:3rem;font-weight:700;line-height:1;margin:8px 0}
+.miss{margin:18px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.miss li{padding:12px 0;border-bottom:1px solid var(--line)}
+.miss b{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{padding:12px 20px;border-radius:6px;font-weight:700;background:var(--ink);color:var(--paper)}
+.btn.alt{background:none;color:var(--ink);border:1px solid var(--ink)}
+#voiceNote{display:none;margin:0 0 18px;padding:10px 14px;border-left:4px solid var(--blush);background:color-mix(in srgb,var(--blush) 12%,var(--card));font-size:.97rem;border-radius:0 6px 6px 0}
+
+@media (max-width:620px){
+  body{font-size:17px}
+  h2{font-size:1.65rem}
+  .dem{grid-template-columns:1fr 1fr}
+  .dem .rowh{grid-column:1 / -1;max-width:none;padding:6px 0 0}
+  .dem .corner{display:none}
+  .word .w-ar{font-size:2.6rem}
+  .ex{grid-template-columns:minmax(0,1fr) 22px;gap:4px 12px}
+  .ex-ar{grid-column:1;font-size:1.9rem}
+  .ex .spk{grid-column:2;grid-row:1}
+  .ex-t{grid-column:1 / -1}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="brand-ar" lang="ar" dir="rtl">رحلة</span><span class="brand-t">Arab tili · boshlangʻich daraja</span></div>
+    <nav class="tabs" role="tablist" aria-label="Darslar">
+      <button class="tab" role="tab" data-go="s1" aria-selected="true">1 Bu va anavi</button>
+      <button class="tab" role="tab" data-go="s2" aria-selected="false">2 Shaxs olmoshlari</button>
+      <button class="tab" role="tab" data-go="s3" aria-selected="false">3 Egalik qoʻshimchalari</button>
+      <button class="tab" role="tab" data-go="s4" aria-selected="false">Test</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <p id="voiceNote">Bu qurilmada arabcha ovoz topilmadi. Telefonda yoki Chrome brauzerida odatda bor; sozlamalardan arab tili ovozini yoqib koʻring.</p>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2>Bu va anavi</h2>
+    <p class="lead">Arab tilida «bu» va «anavi» soʻzlari narsaning jinsiga qarab oʻzgaradi. Istalgan kartani bosing va talaffuzini eshiting.</p>
+    <div class="dem" id="demGrid"></div>
+    <div class="note">
+      <p><b>Jins nima?</b> Arab tilida har bir ot erkak yoki ayol jinsida boʻladi. <span class="ar-in" lang="ar">ة</span> bilan tugaydigan soʻzlar odatda ayol jinsida: <span class="ar-in" lang="ar">مَدْرَسَة</span>, <span class="ar-in" lang="ar">سَيَّارَة</span>.</p>
+      <p><span class="ar-in" lang="ar">ذ</span> harfi inglizcha «this»dagi «th» kabi aytiladi (transkripsiyada <i>dh</i>).</p>
+    </div>
+    <h3>Oddiy misollar</h3>
+    <div class="exs" id="ex1"></div>
+    <button class="next" data-go="s2">Keyingi: shaxs olmoshlari</button>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2" hidden>
+    <h2>Shaxs olmoshlari</h2>
+    <p class="lead">Oʻzbek tilida «u» erkak ham, ayol ham boʻlishi mumkin. Arab tilida esa ular alohida: <span class="ar-in" lang="ar">هُوَ</span> va <span class="ar-in" lang="ar">هِيَ</span>. «Sen» ham shunday ajraladi.</p>
+    <div id="pronGroups"></div>
+    <h3>Oddiy misollar</h3>
+    <div class="exs" id="ex2"></div>
+    <button class="next" data-go="s3">Keyingi: egalik qoʻshimchalari</button>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3" hidden>
+    <h2>Egalik qoʻshimchalari</h2>
+    <p class="lead">«Mening kitobim», «sening kitobing» kabi shakllar arab tilida otning oxiriga qoʻshimcha qoʻshish bilan yasaladi. Rang shaxsni bildiradi, olmoshlar bilan bir xil.</p>
+    <div class="pills" id="nounPills" role="group" aria-label="Otni tanlang"></div>
+    <div class="cards build" id="buildGrid"></div>
+    <div class="note">
+      <p>Ayol jinsidagi ot (<span class="ar-in" lang="ar">ة</span> bilan) qoʻshimchadan oldin <span class="ar-in" lang="ar">ت</span> ga aylanadi: <span class="ar-in" lang="ar">سَيَّارَة</span> → <span class="ar-in" lang="ar">سَيَّارَتِي</span> (mening mashinam).</p>
+    </div>
+    <h3>Oddiy misollar</h3>
+    <div class="exs" id="ex3"></div>
+    <button class="next" data-go="s4">Testni boshlash</button>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4" hidden>
+    <div id="quiz"></div>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+/* ---------- Pronunciation ---------- */
+function fixForSpeech(t){ return t.replace(/\u0670/g, "ا"); }
+function arabicVoice(){
+  try{
+    var v = window.speechSynthesis.getVoices();
+    for (var i=0;i<v.length;i++){ if (v[i].lang && v[i].lang.toLowerCase().indexOf("ar")===0) return v[i]; }
+  }catch(e){}
+  return null;
+}
+function speak(text, el){
+  try{
+    if (!("speechSynthesis" in window)) { return; }
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(fixForSpeech(text));
+    var v = arabicVoice();
+    u.lang = "ar-SA";
+    if (v){ u.voice = v; u.lang = v.lang; }
+    u.rate = 0.8;
+    if (el) el.classList.add("playing");
+    var done = function(){ if (el) el.classList.remove("playing"); };
+    u.onend = done; u.onerror = done;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+document.addEventListener("click", function(e){
+  var b = e.target.closest("[data-say]");
+  if (b){ speak(b.getAttribute("data-say"), b); }
+});
+function checkVoices(){
+  try{
+    var v = window.speechSynthesis.getVoices();
+    if (v.length && !arabicVoice()){ document.getElementById("voiceNote").style.display = "block"; }
+  }catch(e){}
+}
+try{
+  window.speechSynthesis.onvoiceschanged = checkVoices;
+  setTimeout(checkVoices, 1500);
+}catch(e){}
+
+var SPK = '<svg class="spk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+
+/* ---------- Data ---------- */
+var DEM = [
+  {ar:"هَٰذَا",  tr:"hādhā",   uz:"bu",    k:"near"},
+  {ar:"هَٰذِهِ", tr:"hādhihi", uz:"bu",    k:"near"},
+  {ar:"ذَٰلِكَ", tr:"dhālika", uz:"anavi", k:"far"},
+  {ar:"تِلْكَ",  tr:"tilka",   uz:"anavi", k:"far"}
+];
+
+var EX1 = [
+  {s:[["هَٰذَا","near"],[" عَلِيّ",""]],        tr:"hādhā ʿAlī",        uz:"Bu Ali."},
+  {s:[["هَٰذِهِ","near"],[" فَاطِمَة",""]],     tr:"hādhihi Fāṭima",    uz:"Bu Fotima."},
+  {s:[["هَٰذَا","near"],[" كِتَاب",""]],        tr:"hādhā kitāb",       uz:"Bu kitob."},
+  {s:[["هَٰذِهِ","near"],[" سَيَّارَة",""]],    tr:"hādhihi sayyāra",   uz:"Bu mashina."},
+  {s:[["ذَٰلِكَ","far"],[" بَيْت",""]],         tr:"dhālika bayt",      uz:"Anavi uy."},
+  {s:[["تِلْكَ","far"],[" مَدْرَسَة",""]],      tr:"tilka madrasa",     uz:"Anavi maktab."},
+  {s:[["ذَٰلِكَ","far"],[" قَلَم",""]],         tr:"dhālika qalam",     uz:"Anavi qalam."},
+  {s:[["تِلْكَ","far"],[" حَقِيبَة",""]],       tr:"tilka ḥaqība",      uz:"Anavi sumka."}
+];
+
+var PRON = [
+  {g:"p1", title:"1-shaxs", sub:"soʻzlovchi", items:[
+    {ar:"أَنَا",   tr:"anā",    uz:"men"},
+    {ar:"نَحْنُ",  tr:"naḥnu",  uz:"biz"}]},
+  {g:"p2", title:"2-shaxs", sub:"tinglovchi", items:[
+    {ar:"أَنْتَ",  tr:"anta",   uz:"sen", sm:"erkakka"},
+    {ar:"أَنْتِ",  tr:"anti",   uz:"sen", sm:"ayolga"},
+    {ar:"أَنْتُمْ", tr:"antum",  uz:"sizlar", sm:"erkaklarga"}]},
+  {g:"p3", title:"3-shaxs", sub:"boshqa kishi", items:[
+    {ar:"هُوَ",    tr:"huwa",   uz:"u", sm:"erkak"},
+    {ar:"هِيَ",    tr:"hiya",   uz:"u", sm:"ayol"},
+    {ar:"هُمْ",    tr:"hum",    uz:"ular", sm:"erkaklar"}]}
+];
+
+var EX2 = [
+  {s:[["أَنَا","p1"],[" طَالِب",""]],       tr:"anā ṭālib",        uz:"Men talabaman."},
+  {s:[["أَنْتَ","p2"],[" مُعَلِّم",""]],     tr:"anta muʿallim",    uz:"Sen oʻqituvchisan.", n:"erkakka"},
+  {s:[["أَنْتِ","p2"],[" مُعَلِّمَة",""]],   tr:"anti muʿallima",   uz:"Sen oʻqituvchisan.", n:"ayolga"},
+  {s:[["هُوَ","p3"],[" طَبِيب",""]],         tr:"huwa ṭabīb",       uz:"U shifokor.", n:"erkak"},
+  {s:[["هِيَ","p3"],[" طَالِبَة",""]],       tr:"hiya ṭāliba",      uz:"U talaba.", n:"ayol"},
+  {s:[["نَحْنُ","p1"],[" أَصْدِقَاء",""]],   tr:"naḥnu aṣdiqāʾ",    uz:"Biz doʻstlarmiz."},
+  {s:[["أَنْتُمْ","p2"],[" طُلَّاب",""]],    tr:"antum ṭullāb",     uz:"Sizlar talabalarsiz."},
+  {s:[["هُمْ","p3"],[" مُعَلِّمُون",""]],    tr:"hum muʿallimūn",   uz:"Ular oʻqituvchilar."}
+];
+
+var SUF = [
+  {suf:"ِي",  tr:"ī",   p:"p1", who:"mening",    uz:"im"},
+  {suf:"ُكَ", tr:"uka", p:"p2", who:"sening",    uz:"ing",   sm:"erkakka"},
+  {suf:"ُكِ", tr:"uki", p:"p2", who:"sening",    uz:"ing",   sm:"ayolga"},
+  {suf:"ُهُ", tr:"uhu", p:"p3", who:"uning",     uz:"i",     sm:"erkak"},
+  {suf:"ُهَا",tr:"uhā", p:"p3", who:"uning",     uz:"i",     sm:"ayol"},
+  {suf:"ُنَا",tr:"unā", p:"p1", who:"bizning",   uz:"imiz"},
+  {suf:"ُكُمْ",tr:"ukum",p:"p2", who:"sizlarning",uz:"ingiz"},
+  {suf:"ُهُمْ",tr:"uhum",p:"p3", who:"ularning",  uz:"lari"}
+];
+var NOUNS = [
+  {ar:"كِتَاب", tr:"kitāb", uz:"kitob"},
+  {ar:"بَيْت",  tr:"bayt",  uz:"uy"},
+  {ar:"قَلَم",  tr:"qalam", uz:"qalam"}
+];
+
+var EX3 = [
+  {s:[["هَٰذَا",""],[" كِتَاب",""],["ِي","p1"]],        tr:"hādhā kitābī",         uz:"Bu mening kitobim."},
+  {s:[["هَٰذَا",""],[" بَيْت",""],["ُكَ","p2"]],        tr:"hādhā baytuka",        uz:"Bu sening uying.", n:"erkakka"},
+  {s:[["هَٰذِهِ",""],[" سَيَّارَت",""],["ُكِ","p2"]],   tr:"hādhihi sayyāratuki",  uz:"Bu sening mashinang.", n:"ayolga"},
+  {s:[["ذَٰلِكَ",""],[" قَلَم",""],["ُهُ","p3"]],       tr:"dhālika qalamuhu",     uz:"Anavi uning qalami.", n:"u — erkak"},
+  {s:[["تِلْكَ",""],[" حَقِيبَت",""],["ُهَا","p3"]],    tr:"tilka ḥaqībatuhā",     uz:"Anavi uning sumkasi.", n:"u — ayol"},
+  {s:[["هَٰذَا",""],[" بَيْت",""],["ُنَا","p1"]],       tr:"hādhā baytunā",        uz:"Bu bizning uyimiz."},
+  {s:[["هَٰذِهِ",""],[" مَدْرَسَت",""],["ُكُمْ","p2"]], tr:"hādhihi madrasatukum", uz:"Bu sizlarning maktabingiz."},
+  {s:[["تِلْكَ",""],[" سَيَّارَت",""],["ُهُمْ","p3"]],  tr:"tilka sayyāratuhum",   uz:"Anavi ularning mashinasi."}
+];
+
+/* ---------- Rendering: lessons ---------- */
+function segHTML(segs){
+  return segs.map(function(p){ return p[1] ? '<span class="seg '+p[1]+'">'+p[0]+'</span>' : p[0]; }).join("");
+}
+function exHTML(list){
+  return list.map(function(e){
+    var say = e.s.map(function(p){return p[0];}).join("");
+    return '<button class="ex" data-say="'+say+'">'+
+      '<span class="ex-ar" lang="ar" dir="rtl">'+segHTML(e.s)+'</span>'+
+      '<span class="ex-t"><i>'+e.tr+'</i><b>'+e.uz+'</b>'+(e.n?'<small>('+e.n+')</small>':'')+'</span>'+
+      SPK+'</button>';
+  }).join("");
+}
+function wordBtn(d){
+  return '<button class="word '+d.k+'" data-say="'+d.ar+'">'+SPK+
+    '<span class="w-ar" lang="ar">'+d.ar+'</span><span class="w-tr">'+d.tr+'</span><span class="w-uz">'+d.uz+'</span></button>';
+}
+function renderDem(){
+  var g = document.getElementById("demGrid");
+  g.innerHTML =
+    '<span class="corner"></span><span class="colh">Erkak jinsi</span><span class="colh">Ayol jinsi</span>'+
+    '<span class="rowh near">Yaqin<br>«bu»</span>'+wordBtn(DEM[0])+wordBtn(DEM[1])+
+    '<span class="rowh far">Uzoq<br>«anavi»</span>'+wordBtn(DEM[2])+wordBtn(DEM[3]);
+}
+function renderPron(){
+  document.getElementById("pronGroups").innerHTML = PRON.map(function(g){
+    return '<div class="grp '+g.g+'"><div class="grp-h">'+g.title+'<span>'+g.sub+'</span></div><div class="cards">'+
+      g.items.map(function(d){
+        return '<button class="card '+g.g+'" data-say="'+d.ar+'">'+SPK+
+          '<span class="c-ar" lang="ar">'+d.ar+'</span><span class="c-tr">'+d.tr+'</span>'+
+          '<span class="c-uz">'+d.uz+'</span>'+(d.sm?'<span class="c-sm">('+d.sm+')</span>':'')+'</button>';
+      }).join("")+'</div></div>';
+  }).join("");
+}
+var nounIdx = 0;
+function renderBuild(){
+  var n = NOUNS[nounIdx];
+  document.getElementById("nounPills").innerHTML = NOUNS.map(function(x,i){
+    return '<button class="pill" data-noun="'+i+'" aria-pressed="'+(i===nounIdx)+'"><span class="ar" lang="ar">'+x.ar+'</span><span>'+x.uz+'</span></button>';
+  }).join("");
+  document.getElementById("buildGrid").innerHTML = SUF.map(function(s){
+    var word = n.ar + s.suf;
+    return '<button class="card '+s.p+'" data-say="'+word+'">'+SPK+
+      '<span class="b-top"><span class="b-suf" lang="ar">ـ'+s.suf+'</span>'+s.who+(s.sm?' ('+s.sm+')':'')+'</span>'+
+      '<span class="c-ar" lang="ar">'+word+'</span>'+
+      '<span class="c-tr">'+n.tr+s.tr+'</span>'+
+      '<span class="c-uz">'+s.who+' '+n.uz+s.uz+'</span></button>';
+  }).join("");
+}
+document.addEventListener("click", function(e){
+  var p = e.target.closest("[data-noun]");
+  if (p){ nounIdx = parseInt(p.getAttribute("data-noun"),10); renderBuild(); }
+});
+
+/* ---------- Quiz ---------- */
+var QUIZ = [
+ {p:"Bu gap nimani anglatadi?", ar:"هَٰذَا عَلِيّ", o:[
+  {t:"Bu Ali.", ok:1, w:"هَٰذَا — «bu» (yaqindagi narsa yoki odam, erkak jinsi). Shuning uchun gap «Bu Ali»."},
+  {t:"Anavi Ali.", w:"«Anavi» — ذَٰلِكَ. هَٰذَا esa yaqindagi narsani koʻrsatadi, yaʼni «bu»."},
+  {t:"U Ali.", w:"«U» — shaxs olmoshi هُوَ. هَٰذَا olmosh emas, koʻrsatish soʻzi: «mana bu» deydi."},
+  {t:"Men Ali.", w:"«Men» — أَنَا. Gapda أَنَا yoʻq, هَٰذَا bor."}]},
+ {p:"«Bu maktab.» Boʻsh joyga qaysi soʻz mos?", ar:"____ مَدْرَسَة", o:[
+  {ar:"هَٰذِهِ", ok:1, w:"مَدْرَسَة ayol jinsida (ة bilan tugaydi). Yaqindagi ayol jinsi uchun هَٰذِهِ ishlatiladi."},
+  {ar:"هَٰذَا", w:"هَٰذَا yaqin narsa uchun, lekin erkak jinsi uchun. مَدْرَسَة ayol jinsida, shuning uchun mos kelmaydi."},
+  {ar:"ذَٰلِكَ", w:"ذَٰلِكَ — «anavi» (uzoq, erkak jinsi). Gapda esa «bu» (yaqin) kerak."},
+  {ar:"تِلْكَ", w:"تِلْكَ ayol jinsiga mos, lekin u «anavi» (uzoq) degani. Gapda «bu» kerak, yaʼni yaqin."}]},
+ {p:"«Anavi uy.» Boʻsh joyga qaysi soʻz mos?", ar:"____ بَيْت", o:[
+  {ar:"ذَٰلِكَ", ok:1, w:"بَيْت erkak jinsida, «anavi» esa uzoqni bildiradi. Erkak jinsi + uzoq = ذَٰلِكَ."},
+  {ar:"هَٰذَا", w:"هَٰذَا erkak jinsiga mos, lekin «bu» (yaqin) degani. Gapda «anavi» kerak."},
+  {ar:"هَٰذِهِ", w:"هَٰذِهِ «bu» va ayol jinsi uchun. Ikki jihatdan mos emas: yaqin ham, ayol ham."},
+  {ar:"تِلْكَ", w:"تِلْكَ uzoq narsa uchun toʻgʻri, lekin ayol jinsi uchun. بَيْت erkak jinsida."}]},
+ {p:"Bu olmosh nimani anglatadi?", ar:"أَنْتِ", o:[
+  {t:"Sen (ayolga)", ok:1, w:"Oxiridagi kasra (ـِ) ayolga murojaat qilinayotganini bildiradi: أَنْتِ."},
+  {t:"Sen (erkakka)", w:"Erkakka aytiladigan shakl — أَنْتَ, oxirida fatha (ـَ) bor. Bu yerda kasra turibdi."},
+  {t:"U (ayol)", w:"«U» (ayol) — هِيَ. أَنْتِ esa suhbatdoshga qaratilgan «sen»."},
+  {t:"Biz", w:"«Biz» — نَحْنُ."}]},
+ {p:"«U (ayol) oʻqituvchi.» Boʻsh joyga qaysi olmosh mos?", ar:"____ مُعَلِّمَة", o:[
+  {ar:"هِيَ", ok:1, w:"هِيَ — «u» (ayol). مُعَلِّمَة ham ayol jinsida, ular mos tushadi."},
+  {ar:"هُوَ", w:"هُوَ ham «u», lekin erkak uchun. Gapda ayol haqida gap ketyapti."},
+  {ar:"أَنَا", w:"أَنَا — «men». Gapda «u» kerak."},
+  {ar:"نَحْنُ", w:"نَحْنُ — «biz». Gapda «u» kerak."}]},
+ {p:"Tarjima qiling.", ar:"نَحْنُ طُلَّاب", o:[
+  {t:"Biz talabalarmiz.", ok:1, w:"نَحْنُ — «biz», طُلَّاب — «talabalar»."},
+  {t:"Men talabaman.", w:"«Men» — أَنَا. Gapda esa نَحْنُ bor."},
+  {t:"Ular talabalar.", w:"«Ular» — هُمْ. Gapda esa نَحْنُ bor."},
+  {t:"Sizlar talabalarsiz.", w:"«Sizlar» — أَنْتُمْ. Gapda esa نَحْنُ bor."}]},
+ {p:"Bu soʻz nimani anglatadi?", ar:"كِتَابِي", o:[
+  {t:"Mening kitobim", ok:1, w:"Oxiridagi ـِي qoʻshimchasi «mening» degani: كِتَاب + ـِي."},
+  {t:"Sening kitobing", w:"«Sening» — ـكَ (erkakka) yoki ـكِ (ayolga). Bu yerda ـِي bor."},
+  {t:"Uning kitobi", w:"«Uning» — ـهُ yoki ـهَا. Bu yerda ـِي bor."},
+  {t:"Bizning kitobimiz", w:"«Bizning» — ـنَا. Bu yerda ـِي bor."}]},
+ {p:"«Bu sening uying» (erkakka aytilyapti). Qaysi shakl toʻgʻri?", ar:"هَٰذَا ____", o:[
+  {ar:"بَيْتُكَ", ok:1, w:"ـكَ (fatha) — erkakka aytiladigan «sening»."},
+  {ar:"بَيْتُكِ", w:"ـكِ (kasra) — ayolga aytiladigan «sening». Siz erkakka gapiryapsiz, shuning uchun mos emas."},
+  {ar:"بَيْتُهُ", w:"ـهُ — «uning» (erkak). Gapda «sening» kerak."},
+  {ar:"بَيْتُهَا", w:"ـهَا — «uning» (ayol). Gapda «sening» kerak."}]},
+ {p:"Bu soʻz nimani anglatadi?", ar:"بَيْتُهَا", o:[
+  {t:"Uning uyi (u — ayol)", ok:1, w:"ـهَا — egasi ayol boʻlgan «uning»."},
+  {t:"Uning uyi (u — erkak)", w:"Egasi erkak boʻlsa ـهُ ishlatiladi: بَيْتُهُ."},
+  {t:"Sening uying (ayolga)", w:"Bu ـكِ boʻlardi: بَيْتُكِ."},
+  {t:"Bizning uyimiz", w:"Bu ـنَا boʻlardi: بَيْتُنَا."}]},
+ {p:"«Bu bizning mashinamiz.» Qaysi shakl toʻgʻri?", ar:"هَٰذِهِ ____", o:[
+  {ar:"سَيَّارَتُنَا", ok:1, w:"ـنَا — «bizning». Ayol jinsidagi سَيَّارَة qoʻshimchadan oldin ة → ت ga aylanadi."},
+  {ar:"سَيَّارَتُهُمْ", w:"ـهُمْ — «ularning». Gapda «bizning» kerak."},
+  {ar:"سَيَّارَتُكُمْ", w:"ـكُمْ — «sizlarning». Gapda «bizning» kerak."},
+  {ar:"سَيَّارَتِي", w:"ـِي — «mening». Gapda «bizning» kerak."}]},
+ {p:"«Anavi uning qalami» (egasi erkak). Qaysi gap toʻgʻri?", o:[
+  {ar:"ذَٰلِكَ قَلَمُهُ", ok:1, w:"ذَٰلِكَ — «anavi» (uzoq, erkak jinsi), ـهُ — egasi erkak boʻlgan «uning»."},
+  {ar:"ذَٰلِكَ قَلَمُهَا", w:"ـهَا egasi ayol boʻlsa ishlatiladi. Bu yerda egasi erkak: ـهُ kerak."},
+  {ar:"هَٰذَا قَلَمُهُ", w:"هَٰذَا — «bu» (yaqin). Gapda «anavi» (uzoq) kerak."},
+  {ar:"تِلْكَ قَلَمُهُ", w:"تِلْكَ ayol jinsidagi narsalar uchun, قَلَم esa erkak jinsida."}]},
+ {p:"Qaysi olmosh «ular (erkaklar)» degani?", o:[
+  {ar:"هُمْ", ok:1, w:"هُمْ — «ular». Oxiridagi ـمْ koʻplikni bildiradi."},
+  {ar:"هُوَ", w:"هُوَ — yakka «u» (erkak), koʻplik emas."},
+  {ar:"نَحْنُ", w:"نَحْنُ — «biz»."},
+  {ar:"أَنْتُمْ", w:"أَنْتُمْ — «sizlar», yaʼni suhbatdoshlar, ular haqida emas."}]}
+];
+
+var AR_RUN = /[\u0600-\u06FF]+(?:[ \u00a0]+[\u0600-\u06FF]+)*/g;
+function fmt(s){ return s.replace(AR_RUN, function(m){ return '<span class="ar-in" lang="ar" dir="rtl">'+m+'</span>'; }); }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+
+var qi = 0, score = 0, missed = [], cur = [], locked = false;
+
+function optInner(o){
+  return o.ar ? '<span class="o-ar" lang="ar" dir="rtl">'+o.ar+'</span>' : '<span class="o-t">'+o.t+'</span>';
+}
+function optPlain(o){ return o.ar ? '<span class="ar-in" lang="ar" dir="rtl">'+o.ar+'</span>' : o.t; }
+
+function renderQ(){
+  var q = QUIZ[qi];
+  cur = shuffle(q.o); locked = false;
+  var box = document.getElementById("quiz");
+  box.innerHTML =
+    '<div class="qbar"><i style="width:'+(qi/QUIZ.length*100)+'%"></i></div>'+
+    '<p class="qcount">Savol '+(qi+1)+' / '+QUIZ.length+'</p>'+
+    '<p class="q-prompt">'+fmt(q.p)+'</p>'+
+    (q.ar ? '<div class="q-ar"><span class="ar" lang="ar" dir="rtl">'+q.ar+'</span>'+
+      (q.ar.indexOf("____")===-1 ? '<button data-say="'+q.ar+'" aria-label="Eshitish">'+SPK+'</button>' : '')+'</div>' : '')+
+    '<div class="opts">'+cur.map(function(o,i){
+      return '<div class="opt" data-i="'+i+'"><button class="opt-main" data-pick="'+i+'">'+optInner(o)+'<span class="o-tag"></span></button>'+
+        (o.ar ? '<button class="opt-say" data-say="'+o.ar+'" aria-label="Eshitish">'+SPK+'</button>' : '')+'</div>';
+    }).join("")+'</div>'+
+    '<div class="fb" id="fb"></div>';
+}
+
+function pick(i){
+  if (locked) return;
+  locked = true;
+  var q = QUIZ[qi], chosen = cur[i], right = null, ri = -1;
+  cur.forEach(function(o,k){ if (o.ok){ right = o; ri = k; } });
+  var els = document.querySelectorAll(".opt");
+  document.querySelectorAll(".opt-main").forEach(function(b){ b.disabled = true; });
+  els[ri].classList.add("correct"); els[ri].querySelector(".o-tag").textContent = "Toʻgʻri";
+  var good = !!chosen.ok;
+  if (good){ score++; }
+  else {
+    els[i].classList.add("wrong"); els[i].querySelector(".o-tag").textContent = "Xato";
+    missed.push({q:q, right:right});
+  }
+  var last = qi === QUIZ.length-1;
+  var html = '';
+  if (good){
+    html += '<div class="fb-b g"><h4>Toʻgʻri!</h4><p>'+fmt(right.w)+'</p></div>';
+  } else {
+    html += '<div class="fb-b g"><h4>Toʻgʻri javob: '+optPlain(right)+'</h4><p>'+fmt(right.w)+'</p></div>';
+    html += '<div class="fb-b r"><h4>Sizning javobingiz: '+optPlain(chosen)+'</h4><p><b>Nega notoʻgʻri:</b> '+fmt(chosen.w)+'</p></div>';
+  }
+  html += '<div class="btns"><button class="btn" id="nextQ">'+(last?"Natijani koʻrish":"Keyingi savol")+'</button></div>';
+  var fb = document.getElementById("fb");
+  fb.innerHTML = html;
+  document.getElementById("nextQ").focus({preventScroll:true});
+  fb.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function renderResult(){
+  var n = QUIZ.length;
+  var msg = score===n ? "Ajoyib, hammasi toʻgʻri!" : score>=n*0.7 ? "Juda yaxshi natija." : "Darsni bir marta takrorlab, yana urinib koʻring.";
+  var box = document.getElementById("quiz");
+  box.innerHTML =
+    '<div class="qbar"><i style="width:100%"></i></div>'+
+    '<div class="result"><p class="qcount">Test tugadi</p><div class="big">'+score+' / '+n+'</div><p>'+msg+'</p>'+
+    (missed.length ? '<h3>Xato qilingan savollar</h3><ul class="miss">'+missed.map(function(m){
+      return '<li><b>'+fmt(m.q.p)+(m.q.ar?' '+'<span class="ar-in" lang="ar" dir="rtl">'+m.q.ar+'</span>':'')+'</b>Toʻgʻri javob: '+optPlain(m.right)+'. '+fmt(m.right.w)+'</li>';
+    }).join("")+'</ul>' : '')+
+    '<div class="btns"><button class="btn" id="again">Testni qaytadan boshlash</button>'+
+    '<button class="btn alt" data-go="s1">Darsni takrorlash</button></div></div>';
+}
+
+function startQuiz(){ qi = 0; score = 0; missed = []; renderQ(); }
+
+document.addEventListener("click", function(e){
+  var p = e.target.closest("[data-pick]");
+  if (p){ pick(parseInt(p.getAttribute("data-pick"),10)); return; }
+  if (e.target.closest("#nextQ")){
+    if (qi < QUIZ.length-1){ qi++; renderQ(); window.scrollTo({top:0}); } else { renderResult(); window.scrollTo({top:0}); }
+    return;
+  }
+  if (e.target.closest("#again")){ startQuiz(); window.scrollTo({top:0}); }
+});
+
+/* ---------- Tabs ---------- */
+var quizStarted = false;
+function go(id){
+  ["s1","s2","s3","s4"].forEach(function(s){ document.getElementById(s).hidden = (s!==id); });
+  document.querySelectorAll(".tab").forEach(function(t){ t.setAttribute("aria-selected", t.getAttribute("data-go")===id ? "true" : "false"); });
+  if (id==="s4" && !quizStarted){ quizStarted = true; startQuiz(); }
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  window.scrollTo({top:0});
+}
+document.addEventListener("click", function(e){
+  var g = e.target.closest("[data-go]");
+  if (g){ go(g.getAttribute("data-go")); }
+});
+
+/* ---------- Init ---------- */
+renderDem();
+document.getElementById("ex1").innerHTML = exHTML(EX1);
+renderPron();
+document.getElementById("ex2").innerHTML = exHTML(EX2);
+renderBuild();
+document.getElementById("ex3").innerHTML = exHTML(EX3);
+</script>
+</body>
+</html>
